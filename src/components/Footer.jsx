@@ -1,6 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Footer = () => {
+  const [showCookiePolicy, setShowCookiePolicy] = useState(false);
+
   return (
     <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
       {/* Background Elements */}
@@ -149,10 +152,14 @@ const Footer = () => {
                 <span className="relative z-10">Terms of Service</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-purple-600/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -inset-2"></div>
               </a>
-              <a className="group relative hover:text-white transition-colors duration-300">
+              <button
+                type="button"
+                onClick={() => setShowCookiePolicy(true)}
+                className="group relative hover:text-white transition-colors duration-300"
+              >
                 <span className="relative z-10">Cookie Policy</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-purple-600/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -inset-2"></div>
-              </a>
+              </button>
               <Link
                 to="/contact"
                 className="group relative hover:text-white transition-colors duration-300"
@@ -172,6 +179,44 @@ const Footer = () => {
           </div>
         </div>
       </div>
+
+      {showCookiePolicy && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={() => setShowCookiePolicy(false)}
+          />
+          <div className="relative bg-white dark:bg-gray-800 rounded-3xl shadow-2xl max-w-lg w-full p-8 max-h-[80vh] overflow-y-auto">
+            <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              Cookie Policy
+            </h3>
+            <div className="text-gray-600 dark:text-gray-400 space-y-3 text-sm leading-relaxed">
+              <p>
+                JobPortal uses cookies to keep you signed in, remember your
+                preferences (such as light/dark theme), and understand how
+                you use our site so we can improve it.
+              </p>
+              <p>
+                Essential cookies are required for core features like
+                authentication and cannot be disabled. Analytics cookies are
+                optional and help us measure site performance.
+              </p>
+              <p>
+                You can clear cookies and local storage at any time through
+                your browser settings. Doing so will sign you out and reset
+                any saved preferences.
+              </p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setShowCookiePolicy(false)}
+              className="mt-8 w-full px-6 py-3 bg-gradient-to-r from-primary-600 to-purple-600 hover:from-primary-700 hover:to-purple-700 text-white rounded-xl font-semibold transition-colors"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </footer>
   );
 };
